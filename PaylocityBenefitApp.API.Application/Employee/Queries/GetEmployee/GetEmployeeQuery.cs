@@ -11,5 +11,7 @@ namespace PaylocityBenefitApp.API.Application.Employee.Queries.GetEmployee
     public class GetEmployeeQuery : IRequest<GetEmployeeResponseModel>
     {
        public int EmployeeId { get; set; }
+
+
     }
 }
