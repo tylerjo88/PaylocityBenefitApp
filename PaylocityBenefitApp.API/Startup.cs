@@ -34,8 +34,16 @@ namespace PaylocityBenefitApp.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:44388/",
+                                            "https://localhost:44361/");
+                    });
+            });
             services.AddControllers().AddNewtonsoftJson(options =>
                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -68,6 +76,8 @@ namespace PaylocityBenefitApp.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
