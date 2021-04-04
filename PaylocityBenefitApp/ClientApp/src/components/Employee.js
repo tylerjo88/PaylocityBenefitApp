@@ -14,7 +14,7 @@ export class Employee extends Component {
     }
 
     handleChange(event) {
-        this.setState({ value: event.target.value. loggedIn: event.target.value });
+        this.setState({ value: event.target.value, loggedIn: event.target.value });
     }
 
     handleSubmit(event) {
@@ -25,8 +25,6 @@ export class Employee extends Component {
 
         //get employee profile
 
-
-        loggedIn = true;
     }
 
 
