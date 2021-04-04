@@ -21,6 +21,7 @@ namespace PaylocityBenefitApp.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).UseDefaultServiceProvider(options =>
+                        options.ValidateScopes = false);
     }
 }

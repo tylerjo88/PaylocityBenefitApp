@@ -10,6 +10,6 @@ namespace PaylocityBenefitApp.API.Application.Services.Employee.Interfaces
 {
     public interface IEmployeeService 
     {
-        Task<Domain.Entities.Employee> GetEmployeeByIdAsync(int employeeId);
+        Task<Application.Models.Employee> GetEmployeeByIdAsync(int employeeId);
     }
 }

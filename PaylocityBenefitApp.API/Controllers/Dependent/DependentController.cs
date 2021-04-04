@@ -6,31 +6,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using PaylocityBenefitApp.API.Application.Dependent.Commands.AddDependent;
 using PaylocityBenefitApp.API.Domain.Entities;
+using PaylocityBenefitApp.API.Application.Services.Employee.Interfaces;
 
 namespace PaylocityBenefitApp.API.Controllers.Dependent
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class DependentController : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public DependentController(IMediator mediator)
+        private readonly IEmployeeService _employeeService;
+        public DependentController(IEmployeeService employeeService)
         {
-            _mediator = mediator;
+            _employeeService = employeeService;
         }
 
         [HttpPost]
         [Route("/dependent")]
         public async Task<ActionResult> AddDependent([FromBody] DependentEntity dependent)
         {
-            var request = new AddDependentCommand() { 
-                Dependent = dependent          
-            };
+            
 
-            var response = await _mediator.Send(request);
-
-            return Ok(response);
+            return Ok();
 
         }
 

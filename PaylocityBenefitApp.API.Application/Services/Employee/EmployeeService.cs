@@ -6,30 +6,38 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
-
+using PaylocityBenefitApp.API.Persistence.DbContexts;
+using PaylocityBenefitApp.API.Application.Models;
+using AutoMapper;
 
 namespace PaylocityBenefitApp.API.Application.Services.Employee
 {
     public class EmployeeService : IEmployeeService
     {
 
-        private readonly DbContext _humanResourceDbContext;
+        private readonly HumanResourceDbContext _humanResourceDbContext;
+        private readonly IMapper _mapper;
 
-        public EmployeeService(DbContext humanResourceDbContext)
+        public EmployeeService(HumanResourceDbContext humanResourceDbContext, IMapper mapper)
         {
             _humanResourceDbContext = humanResourceDbContext;
+            _mapper = mapper;
         }
 
-        public async Task<Domain.Entities.Employee> GetEmployeeByIdAsync(int employeeId)
+        public async Task<Models.Employee> GetEmployeeByIdAsync(int employeeId)
         {
             // Get Employee Profile from DB
             try
             {
                 //Call to DB
-                var dbResult = await _humanResourceDbContext.FindAsync<Domain.Entities.Employee>(employeeId);
+                var dbResult = _humanResourceDbContext.Employee.Include(emp => emp.Dependents).ToList().Where(a => a.EmployeeId == employeeId).FirstOrDefault();
 
 
-                return dbResult;
+                var mappedModel = _mapper.Map<Models.Employee>(dbResult);
+                return mappedModel;
+
+                
+ 
             }
             catch (Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PaylocityBenefitApp.API.Application.Employee.Queries.GetEmployee;
+
+using PaylocityBenefitApp.API.Application.Services.Employee.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,27 @@ using System.Threading.Tasks;
 
 namespace PaylocityBenefitApp.API.Controllers.Employee
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class EmployeeController : ControllerBase
     {
 
 
-        private readonly IMediator _mediator;
-        public EmployeeController(IMediator mediator)
+        private readonly IEmployeeService _employeeService;
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _mediator = mediator;
+            _employeeService = employeeService;
         }
 
         [HttpGet]
         [Route("/employee/{employeeId}")]
-        public async Task<ActionResult> GetEmployeeById([FromQuery]int employeeId)
+        public async Task<ActionResult> GetEmployeeById(int employeeId)
         {
 
             try
             {
-     
-                var response = await _mediator.Send(new GetEmployeeQuery()
-                {
-                    EmployeeId = employeeId
-                });
 
-                response.FirstName = "Tyler";
+                var response = await _employeeService.GetEmployeeByIdAsync(employeeId);
 
                 return Ok(response);
             }
