@@ -33,14 +33,19 @@
         </div>
 
         <h3>Dependents</h3>
-        @foreach (var dependent in Model.Dependents)
+        @if (Model.Dependents.Any())
         {
-            <div class="card-body">
-                <h5 class="card-title">@dependent.FirstName @dependent.LastName</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@dependent.DateOfBirth</h6>
-                <p class="card-text">Amount Deducted: $@dependent.BenefitDeduction</p>
-            </div>
+            @foreach (var dependent in Model.Dependents)
+            {
+                <div class="card-body">
+                    <h5 class="card-title">@dependent.FirstName @dependent.LastName</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@dependent.DateOfBirth</h6>
+                    <p class="card-text">Amount Deducted: $@dependent.BenefitDeduction</p>
+                </div>
+            }
         }
+        else
+        { <p>No Dependents Found</p>}
 
     }
     else
