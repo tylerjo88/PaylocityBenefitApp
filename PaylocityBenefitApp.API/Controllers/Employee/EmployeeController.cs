@@ -7,9 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 
 namespace PaylocityBenefitApp.API.Controllers.Employee
 {
+
+    [EnableCors(origins: "https://localhost:44388", headers: "*", methods: "*")]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase

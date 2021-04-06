@@ -1,0 +1,42 @@
+﻿
+@using BenefitCalculatorApp.Models.ViewModels
+@model EmployeeViewModel
+
+
+
+<div class="container">
+    <h1>Employee Page</h1>
+    <hr />
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Employee ID: @Model.EmployeeId</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@Model.FirstName @Model.LastName</h6>
+                    <p class="card-text">@Model.DateOfBirth</p>
+                    @*<a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>*@
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <h1>Benefits</h1>
+            <p>Total Deductions: @Model.BenefitDeduction</p>
+            <p>Deduction/Pay Check: @Model.BenefitDeduction / 26</p>
+            <p>Take Home Salary: @Model.TotalSalary</p>
+        </div>
+    </div>
+
+    <h1>Dependents</h1>
+    @foreach (var dependent in Model.Dependents)
+    {
+        <div class="card-body">
+            <h5 class="card-title">@dependent.FirstName @dependent.LastName</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@dependent.DateOfBirth</h6>
+            <p class="card-text"></p>
+            @*<a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>*@
+        </div>
+    }
+
+</div>

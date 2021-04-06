@@ -1,0 +1,27 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Paylocity Benefit Calculator</h1>
+    <p>Calculate Employee &Aacute; Dependent Benefits</p>
+</div>
+
+<div class="container">
+    @using (Html.BeginForm("GetEmployeeProfile", "Employee", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+
+        <form>
+
+            <label for="employeeId">Employee ID:</label><br>
+            <input type="text" id="employeeId" name="employeeId"><br>
+
+            <input type="submit" value="Go" class="btn btn-default" />
+
+        </form>
+    }
+</div>

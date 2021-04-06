@@ -41,7 +41,7 @@ namespace PaylocityBenefitApp.API
                     builder =>
                     {
                         builder.WithOrigins("https://localhost:44388/",
-                                            "https://localhost:44361/");
+                                            "https://localhost:44361/").AllowAnyMethod().AllowAnyHeader();
                     });
             });
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -77,7 +77,10 @@ namespace PaylocityBenefitApp.API
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true));
 
             app.UseAuthorization();
 
