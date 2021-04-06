@@ -10,5 +10,6 @@ namespace BenefitCalculatorApp.Services
     public interface IEmployeeService
     {
         Task<EmployeeViewModel> GetEmployeeProfileAsync(int employeeId);
+        Task<EmployeeViewModel> AddNewEmployeeAsync(EmployeeSubmitViewModel employeeSubmit);
     }
 }

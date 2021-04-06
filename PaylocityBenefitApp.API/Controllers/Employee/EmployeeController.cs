@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http.Cors;
+using PaylocityBenefitApp.API.Application.Models;
+using PaylocityBenefitApp.API.Application.ApiModels.Employee;
 
 namespace PaylocityBenefitApp.API.Controllers.Employee
 {
@@ -44,6 +46,28 @@ namespace PaylocityBenefitApp.API.Controllers.Employee
             }
            
             
+        }
+
+
+        [HttpPost]
+        [Route("/employee")]
+        public async Task<ActionResult> AddNewEmployee([FromBody] AddNewEmployeeRequest employee)
+        {
+
+            try
+            {
+
+                var response = await _employeeService.AddNewEmployeeAsync(employee);
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+
         }
 
     }

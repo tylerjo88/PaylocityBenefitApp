@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BenefitCalculatorApp\BenefitCalculatorApp.csproj" />
     <ProjectReference Include="..\PaylocityBenefitApp.API.Domain\PaylocityBenefitApp.API.Domain.csproj" />
     <ProjectReference Include="..\PaylocityBenefitApp.API.Infrastructure\PaylocityBenefitApp.API.Infrastructure.csproj" />
     <ProjectReference Include="..\PaylocityBenefitApp.API.Persistence\PaylocityBenefitApp.API.Persistence.csproj" />

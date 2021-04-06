@@ -1,10 +1,7 @@
-﻿using BenefitCalculatorApp.Services;
+﻿using BenefitCalculatorApp.Models.ViewModels;
+using BenefitCalculatorApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BenefitCalculatorApp.Controllers
@@ -19,12 +16,6 @@ namespace BenefitCalculatorApp.Controllers
             _employeeService = employeeService;
         }
  
-        [HttpGet]
-        public string Get()
-        {
-            // Add action logic here
-            return "test controller";
-        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -36,6 +27,31 @@ namespace BenefitCalculatorApp.Controllers
 
             // Add action logic here
             return View("Pages/Views/Employee.cshtml", employee);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddNewEmployee(EmployeeSubmitViewModel employee)
+        {
+
+            var newEmployee = await _employeeService.AddNewEmployeeAsync(employee);
+
+
+            // Add action logic here
+            return View("Pages/Views/Employee.cshtml", newEmployee);
+        }
+
+
+
+        public async Task<ActionResult> GetAddEmployeePage()
+        {
+            return View("Pages/Views/AddEmployee.cshtml");
+        }
+
+        public async Task<ActionResult> GetEmployeeLookupPage()
+        {
+            return View("Pages/Index.cshtml");
         }
     }
 }

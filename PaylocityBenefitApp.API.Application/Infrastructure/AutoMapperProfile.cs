@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PaylocityBenefitApp.API.Application.ApiModels.Employee;
 using PaylocityBenefitApp.API.Application.Models;
 using PaylocityBenefitApp.API.Domain.Entities;
 using System;
@@ -13,8 +14,8 @@ namespace PaylocityBenefitApp.API.Application.Infrastructure
     {
         public AutoMapperProfile()
         {
-
-            CreateMap<DependentEntity, Dependent>();
+            CreateMap<AddNewEmployeeRequest, EmployeeEntity>();
+            CreateMap<DependentEntity, Dependent>().ReverseMap();
             CreateMap<EmployeeEntity, Employee>();
         }
     }

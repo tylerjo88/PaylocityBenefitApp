@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using PaylocityBenefitApp.API.Persistence.DbContexts;
 using PaylocityBenefitApp.API.Application.Models;
 using AutoMapper;
+using PaylocityBenefitApp.API.Application.ApiModels.Employee;
+using PaylocityBenefitApp.API.Domain.Entities;
 
 namespace PaylocityBenefitApp.API.Application.Services.Employee
 {
@@ -44,6 +46,33 @@ namespace PaylocityBenefitApp.API.Application.Services.Employee
 
                 throw;
             }
+        }
+
+        public async Task<AddNewEmployeeResponse> AddNewEmployeeAsync(AddNewEmployeeRequest request)
+        {
+            try
+            {
+                var empEntity = _mapper.Map<EmployeeEntity>(request);
+
+                var dbResult = await _humanResourceDbContext.AddAsync(empEntity);
+                await _humanResourceDbContext.SaveChangesAsync();
+
+                return new AddNewEmployeeResponse
+                {
+                    EmployeeId = empEntity.EmployeeId,
+                    FirstName = empEntity.FirstName,
+                    LastName = empEntity.LastName,
+                    MiddleName = empEntity.MiddleName,
+                    DateOfBirth = empEntity.DateOfBirth
+                };
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
+
         }
 
     }
