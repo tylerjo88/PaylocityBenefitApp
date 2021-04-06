@@ -29,9 +29,10 @@ namespace BenefitCalculatorApp.Services
             var employee = await client.GetAsync<EmployeeModel>(request);
 
             var employeeViewModel = _mapper.Map<EmployeeViewModel>(employee);
-
-            this.CalculateBenefitDeductions(employeeViewModel);
-
+            if (employeeViewModel != null)
+            {
+                this.CalculateBenefitDeductions(employeeViewModel);
+            }
             return employeeViewModel;
 
         }

@@ -7,37 +7,45 @@
 <div class="container">
     <h1>
         Employee Details
-    </h1>          
+    </h1>
     @Html.ActionLink("Employee Lookup", "GetEmployeeLookupPage", "Employee")
 
     <hr />
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Employee ID: @Model.EmployeeId</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@Model.FirstName @Model.LastName</h6>
-                    <p class="card-text">@Model.DateOfBirth</p>
-                    <p class="card-text">Amount Deducted: $@String.Format("{0:0.00}",@Model.BenefitDeductionAmount)</p>
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Employee ID: @Model.EmployeeId</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@Model.FirstName @Model.LastName</h6>
+                        <p class="card-text">@Model.DateOfBirth</p>
+                        <p class="card-text">Amount Deducted: $@String.Format("{0:0.00}", @Model.BenefitDeductionAmount)</p>
+                    </div>
                 </div>
             </div>
+            <div id="benefit-details" class="col-xs-6">
+                <h2>Benefit Details</h2>
+                <p>Total Deductions: $@Model.BenefitDeduction</p>
+                <p>Bi-Weekly Deduction Amount: $@String.Format("{0:0.00}", @Model.PaycheckDeduction)</p>
+                <p>Take Home Salary: $@Model.TotalSalary</p>
+            </div>
         </div>
-        <div id ="benefit-details" class="col-xs-6">
-            <h2>Benefit Details</h2>
-            <p>Total Deductions: $@Model.BenefitDeduction</p>
-            <p>Bi-Weekly Deduction Amount: $@String.Format("{0:0.00}", @Model.PaycheckDeduction)</p>
-            <p>Take Home Salary: $@Model.TotalSalary</p>
-        </div>
-    </div>
 
-    <h3>Dependents</h3>
-    @foreach (var dependent in Model.Dependents)
+        <h3>Dependents</h3>
+        @foreach (var dependent in Model.Dependents)
+        {
+            <div class="card-body">
+                <h5 class="card-title">@dependent.FirstName @dependent.LastName</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@dependent.DateOfBirth</h6>
+                <p class="card-text">Amount Deducted: $@dependent.BenefitDeduction</p>
+            </div>
+        }
+
+    }
+    else
     {
-        <div class="card-body">
-            <h5 class="card-title">@dependent.FirstName @dependent.LastName</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@dependent.DateOfBirth</h6>
-            <p class="card-text">Amount Deducted: $@dependent.BenefitDeduction</p>
-        </div>
+        <h3>No Employee Found for ID</h3>
     }
 
 </div>
