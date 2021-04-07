@@ -4,10 +4,7 @@ using BenefitCalculatorApp.Models.ApiModels.Employee;
 using BenefitCalculatorApp.Models.ViewModels;
 using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BenefitCalculatorApp.Services
@@ -20,23 +17,32 @@ namespace BenefitCalculatorApp.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get Employee Profile
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public async Task<EmployeeViewModel> GetEmployeeProfileAsync(int employeeId)
         {
             var client = new RestClient("https://localhost:44361");
-
             var request = new RestRequest($"employee/{employeeId}");
-
             var employee = await client.GetAsync<EmployeeModel>(request);
 
             var employeeViewModel = _mapper.Map<EmployeeViewModel>(employee);
+
             if (employeeViewModel != null)
             {
                 this.CalculateBenefitDeductions(employeeViewModel);
             }
-            return employeeViewModel;
 
+            return employeeViewModel;
         }
 
+        /// <summary>
+        /// Add New Employee and Dependents
+        /// </summary>
+        /// <param name="employeeSubmit"></param>
+        /// <returns></returns>
         public async Task<EmployeeViewModel> AddNewEmployeeAsync(EmployeeSubmitViewModel employeeSubmit)
         {
 
@@ -52,22 +58,22 @@ namespace BenefitCalculatorApp.Services
             };
 
             var client = new RestClient("https://localhost:44361");
-
             var request = new RestRequest($"employee", Method.POST)
                 .AddJsonBody(addRequest);
-
             var employee = client.Execute(request);
 
             var responseContent = JsonConvert.DeserializeObject<AddNewEmployeeResponse>(employee.Content);
 
             var employeeProfile = await this.GetEmployeeProfileAsync(responseContent.EmployeeId);
 
-
             return employeeProfile;
-
         }
 
-
+        /// <summary>
+        /// Calculate Benefit Deductions for Employee and Dependents
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public EmployeeViewModel CalculateBenefitDeductions(EmployeeViewModel employee)
         {
             decimal totalBenefitDeduction = 1000.00M;
@@ -85,7 +91,7 @@ namespace BenefitCalculatorApp.Services
                 foreach (var dependent in employee.Dependents)
                 {
                     totalBenefitDeduction += (dependent.FirstName.StartsWith("A") || employee.FirstName.StartsWith("a")) ? 500M - (500M * .20M) :  500;
-                    dependent.BenefitDeduction = dependent.FirstName.StartsWith("A") ? 500M - (500M * .20M) : 500;
+                    dependent.BenefitDeduction = dependent.FirstName.StartsWith("A") || employee.FirstName.StartsWith("a") ? 500M - (500M * .20M) : 500;
                 }
             }
              

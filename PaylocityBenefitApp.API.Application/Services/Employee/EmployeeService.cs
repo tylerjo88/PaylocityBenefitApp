@@ -1,13 +1,9 @@
 ﻿using PaylocityBenefitApp.API.Application.Services.Employee.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.EntityFrameworkCore;
 using PaylocityBenefitApp.API.Persistence.DbContexts;
-using PaylocityBenefitApp.API.Application.Models;
 using AutoMapper;
 using PaylocityBenefitApp.API.Application.ApiModels.Employee;
 using PaylocityBenefitApp.API.Domain.Entities;
@@ -26,6 +22,11 @@ namespace PaylocityBenefitApp.API.Application.Services.Employee
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get Employee by ID 
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public async Task<Models.Employee> GetEmployeeByIdAsync(int employeeId)
         {
             // Get Employee Profile from DB
@@ -37,9 +38,6 @@ namespace PaylocityBenefitApp.API.Application.Services.Employee
 
                 var mappedModel = _mapper.Map<Models.Employee>(dbResult);
                 return mappedModel;
-
-                
- 
             }
             catch (Exception ex)
             {
@@ -48,6 +46,11 @@ namespace PaylocityBenefitApp.API.Application.Services.Employee
             }
         }
 
+        /// <summary>
+        /// Add New Employee
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<AddNewEmployeeResponse> AddNewEmployeeAsync(AddNewEmployeeRequest request)
         {
             try
@@ -69,7 +72,7 @@ namespace PaylocityBenefitApp.API.Application.Services.Employee
             catch (Exception ex)
             {
 
-                throw;
+                return new AddNewEmployeeResponse();
             }
             
 

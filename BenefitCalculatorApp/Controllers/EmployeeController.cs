@@ -17,6 +17,11 @@ namespace BenefitCalculatorApp.Controllers
         }
  
 
+        /// <summary>
+        /// Get Employee Profile by Employee ID
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
@@ -29,6 +34,11 @@ namespace BenefitCalculatorApp.Controllers
             return View("Pages/Views/Employee.cshtml", employee);
         }
 
+        /// <summary>
+        /// Add New Employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
@@ -43,12 +53,19 @@ namespace BenefitCalculatorApp.Controllers
         }
 
 
-
+        /// <summary>
+        /// Get Add Employee Page
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> GetAddEmployeePage()
         {
             return View("Pages/Views/AddEmployee.cshtml");
         }
 
+        /// <summary>
+        /// Get Employee Lookup Page
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> GetEmployeeLookupPage()
         {
             return View("Pages/Index.cshtml");

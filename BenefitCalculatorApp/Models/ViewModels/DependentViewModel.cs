@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
-namespace BenefitCalculatorApp.Models.ViewModels
+﻿namespace BenefitCalculatorApp.Models.ViewModels
 {
     public class DependentViewModel : HumanViewModel
     {
